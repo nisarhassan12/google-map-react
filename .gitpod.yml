@@ -1,0 +1,24 @@
+tasks:
+  - name: Compile
+    init: | 
+      npm install 
+      npm link
+      gp sync-done init
+    command: npm start
+
+  - name: Example
+    before: cd example
+    init: |
+      gp sync-await init
+      npm install
+      npm link google-map-react
+    command: npm start
+  
+  - name: Test
+    init: gp sync-await init
+    command: npm run test:watch 
+    openMode: split-right
+    
+ports:
+  - port: 3000
+    onOpen: open-preview
